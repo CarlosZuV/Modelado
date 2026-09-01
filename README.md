@@ -4,9 +4,9 @@
 Integrantes
 -------------------------------------
 
--Bárcenas Lejarazo Karen
--Cantero Zavaleta Héctor
--Miranda Vieyra Francisco Cuahutémoc
--Zúñiga Vilchis Carlos Uriel
+-Bárcenas Lejarazo Karen\
+-Cantero Zavaleta Héctor\
+-Miranda Vieyra Francisco Cuahutémoc\
+-Zúñiga Vilchis Carlos Uriel\
 
 --------------------------------------
