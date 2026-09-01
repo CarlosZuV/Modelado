@@ -7,6 +7,6 @@ Integrantes
 -Bárcenas Lejarazo Karen\
 -Cantero Zavaleta Héctor\
 -Miranda Vieyra Francisco Cuahutémoc\
--Zúñiga Vilchis Carlos Uriel\
+-Zúñiga Vilchis Carlos Uriel
 
 --------------------------------------
