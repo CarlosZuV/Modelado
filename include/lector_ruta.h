@@ -1,16 +1,18 @@
 #pragma once
 #include<string>
 #include<filesystem>
+#include <stdexcept>
 
-namespace fs = std::filesystem;
 
 class lector_ruta {
 
 private:
-  fs::path ruta;
+  std::filesystem::path ruta;
   
 public:
   lector_ruta(std::string argumento);
   bool esUsable();
+  bool terminacionCorrecta();
+  bool archivoExiste();
 
 };
