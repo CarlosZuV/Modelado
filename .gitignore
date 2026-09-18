@@ -8,6 +8,9 @@
 *.fls
 *.fdb_latexmk
 
+# Cosita del build
+mis_pruebas
+
 # Archivos temporales
 *~
 

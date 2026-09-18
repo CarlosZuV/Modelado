@@ -1,7 +1,7 @@
-#include"lector_ruta.h"
+#include"../include/lector_ruta.h"
 #include<string>
 #include<filesystem>
-#include <stdexcept>
+#include<stdexcept>
 
 
 namespace fs = std::filesystem;
@@ -9,8 +9,8 @@ namespace fs = std::filesystem;
 // Objeto para ser evaludado
 lector_ruta::lector_ruta(std::string argumento) {
 
-  if (argumento.empty())
-    throw  std::invalid_argument("El string debe contener cuerpo");
+  if (argumento.empty() || argumento.find_first_not_of(' ') == std::string::npos)
+    throw  std::invalid_argument("Ni strings vacios, ni strings de puros espacios");
 
   ruta = argumento;
 }
@@ -25,6 +25,7 @@ bool lector_ruta::archivoExiste() {
   return fs::exists(ruta);
 }
 
+// Combinacion de los dos metodos anteriores
 bool lector_ruta::esUsable() {
   return terminacionCorrecta() && archivoExiste();
 }
