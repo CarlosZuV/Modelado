@@ -5,7 +5,7 @@
 // Constructor del lectorConsola
 // int argc = tamano del argumento
 // char* argv[] = El arreglo de argumentos
-LectorConsola(int argc, char* argv[]){
+LectorConsola::LectorConsola(int argc, char* argv[]){
 
   if (argv == nullptr)
     throw std::invalid_argument("No se acepta arreglo null");
@@ -21,11 +21,11 @@ LectorConsola(int argc, char* argv[]){
   }
 }
 
-std::string lector_consola::getRuta() const {
+std::string LectorConsola::getRuta() const {
   return ruta;
 }
 
-bool lector_consola::sinArgumento() const{
+bool LectorConsola::sinArgumentos() const{
   return ruta.empty();
 }
 

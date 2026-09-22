@@ -18,7 +18,7 @@ TEST(ConstructorTest, EntradaValida_SinArgumento) {
   LectorConsola lectorC(argc, (char**)argv);
 
   // Metodo que nos dice si no tiene argumentos
-  EXPECT_TRUE(lectorC.sinArgumento());
+  EXPECT_TRUE(lectorC.sinArgumentos());
   
 }
 /* ////////////////////////
@@ -37,7 +37,7 @@ TEST(ConstructorTest, EntradaValida_ConArgumento) {
   LectorConsola lectorC(argc, (char**)argv);
 
   // Si tiene un argumento, por lo tanto esto es falso
-  EXPECT_FALSE(lectorC.sinArgumento());
+  EXPECT_FALSE(lectorC.sinArgumentos());
   
   // Verificamos que "foto.bmp" si esta en la ruta
   EXPECT_EQ(lectorC.getRuta(), "foto.bmp");
@@ -59,7 +59,7 @@ TEST(ConstructorTest, EntradaValida_ConMasArgumentos) {
   LectorConsola lectorC(argc, (char**)argv);
 
   // Si tiene un argumento, por lo tanto esto es falso
-  EXPECT_FALSE(lectorC.sinArgumento());
+  EXPECT_FALSE(lectorC.sinArgumentos());
   
   // Verificamos que "foto.bmp" si esta en la ruta
   EXPECT_EQ(lectorC.getRuta(), "foto.bmp");

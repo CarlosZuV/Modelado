@@ -4,12 +4,12 @@
 #include<string>
 
 
-class lector_consola {
+class LectorConsola {
 private:
   std::string ruta;
 
 public:
-  LectorConsola(int argc, (char**)argv);
+  LectorConsola(int argc, char* argv[]);
   std::string getRuta() const;
   bool sinArgumentos() const;
 };

@@ -33,6 +33,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(sistema_figuras
 	src/main.cpp
 	src/lector_ruta.cpp
+	src/lector_consola.cpp
 )
 
 target_link_libraries(sistema_figuras ${OpenCV_LIBS})
@@ -47,6 +48,8 @@ add_executable(app_pruebas
    tests/test.cpp
    src/lector_ruta.cpp
    tests/lectorTest.cpp
+   src/lector_consola.cpp
+   tests/consolaTest.cpp
 )
 
 # Vinculamos el programa de pruebas con la librería de Google Test
