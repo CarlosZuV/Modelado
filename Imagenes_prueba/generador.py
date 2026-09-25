@@ -74,4 +74,4 @@ draw10.polygon([(20, 20), (120, 20), (120, 120), (20, 120)], fill=(50, 50, 50)) 
 draw10.ellipse([480, 20, 580, 120], fill=(200, 0, 0))                                 # Círculo rojo oscuro
 draw10.polygon([(50, 250), (150, 350), (20, 350)], fill=(0, 200, 0))                  # Triángulo verde oscuro
 draw10.polygon([(450, 250), (550, 250), (580, 320), (500, 380), (420, 320)], fill=(0, 0, 200)) # Pentágono azul
-guardar_imagen(img10, "prueba_10_jefe_final.bmp")
+guardar_imagen(img10, "prueba_10_jefe_final.bmp"=)
