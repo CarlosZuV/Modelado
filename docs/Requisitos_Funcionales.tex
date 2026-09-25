@@ -180,6 +180,28 @@ enfrentamos, ya que de esta manera se espera que la solución se desarrolle bajo
 
 \section{Arsenal del proyecto}
 
+Para garantizar un desarrollo ordenado, colaborativo y con altos estándares de calidad, el equipo de desarrollo ha definido un conjunto de herramientas tecnológicas (arsenal del proyecto) que abarcan desde el lenguaje de programación hasta el control de versiones y el sistema de compilación. A continuación se detallan las tecnologías y metodologías seleccionadas:
+
+\subsection{Lenguaje de Programación y Estilo}
+El proyecto está siendo desarrollado en \textbf{C++}, aprovechando su paradigma orientado a objetos. Este enfoque modular permite separar responsabilidades, como se evidencia en la implementación de clases específicas para la entrada de datos, tales como \texttt{lector\_consola} y \texttt{lector\_ruta}. El uso de C++ facilita el manejo directo de memoria y la optimización en el procesamiento, lo cual es fundamental para el posterior análisis de imágenes BMP.
+
+\subsection{Sistema de Construcción (Build System)}
+Para automatizar y estandarizar el proceso de compilación, se utiliza \textbf{CMake}. La configuración centralizada en el archivo \texttt{CMakeLists.txt} permite que cualquier miembro del equipo, independientemente de su sistema operativo o IDE (como Visual Studio Code), pueda generar los binarios del programa de forma confiable y reproducible.
+
+\subsection{Control de Versiones y Trabajo Colaborativo}
+El control de versiones se gestiona íntegramente mediante \textbf{Git}, con el repositorio alojado remotamente en \textbf{GitHub}. Para mantener la integridad del código, el equipo sigue un flujo de trabajo basado en ramas (\textit{branching}). Las características nuevas, como las actualizaciones en las validaciones de consola y rutas, se desarrollan y prueban en ramas individuales antes de ser fusionadas (\textit{merge}) a la rama principal (\texttt{main}).
+
+\subsection{Estructura del Repositorio}
+El repositorio sigue un formato profesional estándar para proyectos en C/C++, lo que facilita la navegación y el mantenimiento del código:
+\begin{itemize}
+    \item \textbf{\texttt{/src}:} Contiene los archivos fuente (\texttt{.cpp}), incluyendo la lógica principal (\texttt{main.cpp}) y la implementación de los módulos.
+    \item \textbf{\texttt{/include}:} Almacena los archivos de cabecera (\texttt{.h}), donde se definen las interfaces y las estructuras de las clases.
+    \item \textbf{\texttt{/tests}:} Carpeta dedicada a las pruebas unitarias. Esto garantiza que las actualizaciones (como las realizadas a los lectores de rutas y consola) no rompan la funcionalidad existente y cumplan con los requerimientos técnicos.
+    \item \textbf{\texttt{/docs}:} Repositorio de la documentación del proyecto, incluyendo los diagramas de flujo y este mismo documento redactado en LaTeX.
+\end{itemize}
+
+\subsection{Entorno de Desarrollo Integrado (IDE)}
+El equipo utiliza predominantemente \textbf{Visual Studio Code (VS Code)}, el cual, en combinación con extensiones para C/C++, CMake y Git, proporciona un entorno de trabajo ágil. Además, herramientas adicionales de control de versiones integradas en el editor facilitan la visualización del historial de commits y la resolución de conflictos.
 
 
 
