@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(include)
 
 find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 # 2. Descargar Google Test de forma segura
 # Usamos una versión fija (Tag) para que a todos tus amigos les descargue exactamente la misma
@@ -21,6 +22,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG release-1.12.1
 )
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE) 
 FetchContent_MakeAvailable(googletest)
 
 # ==============================================================================
@@ -28,12 +30,11 @@ FetchContent_MakeAvailable(googletest)
 # ==============================================================================
 # Aquí pones el main y toda la lógica de la carpeta src/, pero NO las pruebas
 
-# src/OtraClase.cpp (Agrega aquí los nuevos .cpp que vayan creando)
-
 add_executable(sistema_figuras
 	src/main.cpp
 	src/lector_ruta.cpp
 	src/lector_consola.cpp
+	src/cargador_imagen.cpp
 )
 
 target_link_libraries(sistema_figuras ${OpenCV_LIBS})
@@ -50,11 +51,12 @@ add_executable(app_pruebas
    tests/lectorTest.cpp
    src/lector_consola.cpp
    tests/consolaTest.cpp
+   src/cargador_imagen.cpp
+   tests/cargadorTest.cpp
 )
 
-# Vinculamos el programa de pruebas con la librería de Google Test
+
 target_link_libraries(app_pruebas GTest::gtest_main ${OpenCV_LIBS})
 
-# 5. Habilitar CTest para que escanee y registre las pruebas automáticamente
 include(GoogleTest)
 gtest_discover_tests(app_pruebas)
