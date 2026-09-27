@@ -2,6 +2,10 @@
 
 char clasificarFigura(const std::vector<cv::Point>& contorno) {
 
+    if (contorno.empty()) {
+        return 'X';
+    }
+
     double perimetro = cv::arcLength(contorno, true);
 
     std::vector<cv::Point> aproximacion;

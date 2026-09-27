@@ -51,3 +51,19 @@ TEST(ClasificadorTest, DetectaOtro) {
 
     EXPECT_EQ(clasificarFigura(pentagono), 'X');
 }
+
+TEST(ClasificadorTest, VectorVacio) {
+    std::vector<cv::Point> vacio;
+
+    EXPECT_EQ(clasificarFigura(vacio), 'X');
+}
+
+TEST(ClasificadorTest, LineaNoEsFigura) {
+    std::vector<cv::Point> linea = {
+        cv::Point(0, 0),
+        cv::Point(50, 0),
+        cv::Point(100, 0)
+    };
+
+    EXPECT_EQ(clasificarFigura(linea), 'X');
+}
