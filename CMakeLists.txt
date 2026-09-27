@@ -35,6 +35,7 @@ add_executable(sistema_figuras
 	src/lector_ruta.cpp
 	src/lector_consola.cpp
 	src/cargador_imagen.cpp
+  src/clasificar_figura.cpp 
 )
 
 target_link_libraries(sistema_figuras ${OpenCV_LIBS})
@@ -53,6 +54,8 @@ add_executable(app_pruebas
    tests/consolaTest.cpp
    src/cargador_imagen.cpp
    tests/cargadorTest.cpp
+   src/clasificar_figura.cpp
+   tests/clasificadorTest.cpp
 )
 
 
@@ -60,3 +63,5 @@ target_link_libraries(app_pruebas GTest::gtest_main ${OpenCV_LIBS})
 
 include(GoogleTest)
 gtest_discover_tests(app_pruebas)
+
+enable_testing()  #Habilita CTest para registrar y ejecutar las pruebas del proyecto
