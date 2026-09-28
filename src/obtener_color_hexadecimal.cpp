@@ -1,15 +1,23 @@
+#include "obtener_color.h"
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <iomanip> // Necesario para setfill, setw y hex
 #include <sstream> // Necesario para construir el string de cadenas de texo complejas
 #include <string>
+#include <stdexcept> // Necesario para lanzar excepciones
 
 std::string obtenerColorHexadecimal(const cv::Mat& imagen, int x, int y) {
+    // (Validación de errores)
+    // imagen.cols es el ancho (X máximo), imagen.rows es el alto (Y máximo)
+    if (x < 0 || x >= imagen.cols || y < 0 || y >= imagen.rows) {
+        throw std::out_of_range("Error: Las coordenadas (X, Y) estan fuera de los limites de la imagen.");
+    }
+
     // 1. Apuntar al pixel exacto en la matriz (fila Y, columna X), ya que open cv para consultar una matriz primero se le pasa la fila (y) y luego la columna (x)
     // cv::Vec3b es un vector de 3 bytes (uno para cada canal de color)
     cv::Vec3b pixel = imagen.at<cv::Vec3b>(y, x);
     
-    // 2. Extraer los canales considerando que OpenCV, en esta coasion es diferente ya que su formato no es RGB usa BGR
+    // 2. Extraer los canales considerando que OpenCV, en esta ocasion es diferente ya que su formato no es RGB usa BGR
     int azul  = pixel[0];
     int verde = pixel[1];
     int rojo  = pixel[2];
@@ -18,9 +26,9 @@ std::string obtenerColorHexadecimal(const cv::Mat& imagen, int x, int y) {
     // Equivalente a usar String.format("%02X", color) en Java
     std::stringstream hexStream;
     hexStream << "#"
-              << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << rojo  // Estos comandos std::hex y std::uppercase trasnforman el numero entero a base 16 en mayuscula
+              << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << rojo  // Estos comandos std::hex y std::uppercase trasnforman el numero entero a base 16 en mayuscula, uppercase: Fuerza a que las letras del hexadecimal sean mayúsculas (ej. FF en lugar de ff).
               << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << verde
               << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << azul;
-              // std::setfill('0'), y std::setw(2) aseguran que un numero como el 5 se convierta en "05" en lugar de "5", para mantener el formato hexadecimal de 2 dígitos por canal, mateniendo la estructura escrita del color. 
+              // std::setfill('0'), y std::setw(2) aseguran que un numero como el 5 se convierta en "05" en lugar de "5", para mantener el formato hexadecimal de 2 dígitos por canal, mateniendo la estructura escrita del color, en resumen; obliga a que el número ocupe exactamente 2 espacios. 
     return hexStream.str();
 }
