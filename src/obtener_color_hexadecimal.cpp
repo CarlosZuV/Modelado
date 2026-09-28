@@ -4,15 +4,15 @@
 #include <sstream> // Necesario para construir el string de cadenas de texo complejas
 #include <string>
 
-std::string obtenerColorHexadecimal(const cv::Mat& imagen, int x, int y) {
+std::string obtenerColorHexadecimal(const cv::Vec3b& color) {
     // 1. Apuntar al pixel exacto en la matriz (fila Y, columna X), ya que open cv para consultar una matriz primero se le pasa la fila (y) y luego la columna (x)
     // cv::Vec3b es un vector de 3 bytes (uno para cada canal de color)
-    cv::Vec3b pixel = imagen.at<cv::Vec3b>(y, x);
+    //cv::Vec3b pixel = imagen.at<cv::Vec3b>(y, x); ya no es necesario, -Zu
     
     // 2. Extraer los canales considerando que OpenCV, en esta coasion es diferente ya que su formato no es RGB usa BGR
-    int azul  = pixel[0];
-    int verde = pixel[1];
-    int rojo  = pixel[2];
+    int azul  = color[0];
+    int verde = color[1];
+    int rojo  = color[2];
     
     // 3. Formatear los números a un String Hexadecimal
     // Equivalente a usar String.format("%02X", color) en Java

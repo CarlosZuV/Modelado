@@ -1,4 +1,6 @@
 #include "../include/clasificar_figura.h"
+#include <opencv2/imgproc.hpp> //para que no haya error al compilar -Zu
+#include <opencv2/geometry.hpp> //lo mismo, Zu
 
 char clasificarFigura(const std::vector<cv::Point>& contorno) {
 
@@ -9,7 +11,7 @@ char clasificarFigura(const std::vector<cv::Point>& contorno) {
     cv::approxPolyDP(
         contorno,
         aproximacion,
-        0.02 * perimetro,
+        0.02 * perimetro, //tolerancia de aproximación
         true
     );
 
