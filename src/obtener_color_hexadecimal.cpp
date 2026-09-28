@@ -6,21 +6,15 @@
 #include <string>
 #include <stdexcept> // Necesario para lanzar excepciones
 
-std::string obtenerColorHexadecimal(const cv::Mat& imagen, int x, int y) {
-    // (Validación de errores)
-    // imagen.cols es el ancho (X máximo), imagen.rows es el alto (Y máximo)
-    if (x < 0 || x >= imagen.cols || y < 0 || y >= imagen.rows) {
-        throw std::out_of_range("Error: Las coordenadas (X, Y) estan fuera de los limites de la imagen.");
-    }
-
+std::string obtenerColorHexadecimal(const cv::Vec3b& color) {
     // 1. Apuntar al pixel exacto en la matriz (fila Y, columna X), ya que open cv para consultar una matriz primero se le pasa la fila (y) y luego la columna (x)
     // cv::Vec3b es un vector de 3 bytes (uno para cada canal de color)
-    cv::Vec3b pixel = imagen.at<cv::Vec3b>(y, x);
+    //cv::Vec3b pixel = imagen.at<cv::Vec3b>(y, x); ya no es necesario, -Zu
     
-    // 2. Extraer los canales considerando que OpenCV, en esta ocasion es diferente ya que su formato no es RGB usa BGR
-    int azul  = pixel[0];
-    int verde = pixel[1];
-    int rojo  = pixel[2];
+    // 2. Extraer los canales considerando que OpenCV, en esta coasion es diferente ya que su formato no es RGB usa BGR
+    int azul  = color[0];
+    int verde = color[1];
+    int rojo  = color[2];
     
     // 3. Formatear los números a un String Hexadecimal
     // Equivalente a usar String.format("%02X", color) en Java

@@ -3,5 +3,4 @@
 #include <string>
 #include <opencv2/opencv.hpp>
 
-std::string obtenerColorHexadecimal(const cv::Mat& imagen, int x, int y);
-
+std::string obtenerColorHexadecimal(const cv::Vec3b& color); //mod by zu
