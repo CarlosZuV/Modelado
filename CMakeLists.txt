@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Le decimos a CMake dónde encontrar los archivos .h (menú) para todo el proyecto
 include_directories(include)
 
-find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs) #modificado por Zu, unicamente lo necesario
+find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs geometry) #modificado por Zu, unicamente lo necesario
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 # 2. Descargar Google Test de forma segura
