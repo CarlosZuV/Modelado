@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Le decimos a CMake dónde encontrar los archivos .h (menú) para todo el proyecto
 include_directories(include)
 
-find_package(OpenCV 4.6.0 REQUIRED COMPONENTS core imgproc highgui)
+find_package(OpenCV 5.0.0 REQUIRED COMPONENTS core imgproc highgui)
 #modificado por Zu, unicamente lo necesario
 include_directories(${OpenCV_INCLUDE_DIRS})
 
