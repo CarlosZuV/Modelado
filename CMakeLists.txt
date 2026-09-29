@@ -50,17 +50,19 @@ target_link_libraries(sistema_figuras ${OpenCV_LIBS})
 # Nota que NO incluimos src/main.cpp aquí, porque GTest ya tiene su propio main.
 
 add_executable(app_pruebas 
-   tests/test.cpp
-   src/lector_ruta.cpp
-   tests/lectorTest.cpp
-   src/lector_consola.cpp
-   tests/consolaTest.cpp
-   src/cargador_imagen.cpp
-   tests/cargadorTest.cpp
-   src/clasificar_figura.cpp
-   tests/clasificadorTest.cpp
-   src/obtener_color_hexadecimal.cpp
-   tests/obtener_color_Test.cpp
+  tests/test.cpp
+  src/lector_ruta.cpp
+  tests/lectorTest.cpp
+  src/lector_consola.cpp
+  tests/consolaTest.cpp
+  src/cargador_imagen.cpp
+  tests/cargadorTest.cpp
+  src/clasificar_figura.cpp
+  tests/clasificadorTest.cpp
+  src/obtener_color_hexadecimal.cpp
+  tests/obtener_color_Test.cpp
+  tests/analizadorTest.cpp
+  src/analizador_imagen.cpp
 )
 
 

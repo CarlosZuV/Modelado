@@ -128,10 +128,12 @@ TEST(ConstructorTest, ObjetoCompletitud_Correcta) {
 */ ////////////////////////
 
 TEST(ConstructorTest, ObjetoCompletitud_NoExistencia) {
-
   lector_ruta ruta("fotoCanek.bmp");
 
-  EXPECT_FALSE(ruta.esUsable());
+  EXPECT_THROW(
+    ruta.esUsable(),
+    std::invalid_argument
+  );
 }
 
 /* ////////////////////////
@@ -139,16 +141,17 @@ TEST(ConstructorTest, ObjetoCompletitud_NoExistencia) {
 */ ////////////////////////
 
 TEST(ConstructorTest, ObjetoCompletitud_TerminacionFalla) {
-
   std::string archivo_mal = "foto_galaviz.jpg";
 
   std::ofstream archivoTemp(archivo_mal);
-
   archivoTemp.close();
 
   lector_ruta ruta(archivo_mal);
 
-  EXPECT_FALSE(ruta.esUsable());
+  EXPECT_THROW(
+    ruta.esUsable(),
+    std::invalid_argument
+  );
 
   std::filesystem::remove(archivo_mal);
 }
