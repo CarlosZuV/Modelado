@@ -27,5 +27,13 @@ bool lector_ruta::archivoExiste() {
 
 // Combinacion de los dos metodos anteriores
 bool lector_ruta::esUsable() {
-  return terminacionCorrecta() && archivoExiste();
+  if (!terminacionCorrecta()) {
+    throw std::invalid_argument("La ruta no tiene extension .bmp");
+  }
+
+  if (!archivoExiste()) {
+    throw std::invalid_argument("El archivo no existe");
+  }
+
+  return true;
 }

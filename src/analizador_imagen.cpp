@@ -3,6 +3,10 @@
 #include <cstdint>
 #include <unordered_set>
 #include "../include/componente.h"
+#include "../include/clasificar_figura.h"
+#include "../include/obtener_color.h"
+#include <opencv2/imgproc.hpp>
+#include <opencv2/geometry.hpp>
 
 uint32_t codificarColor(const cv::Vec3b& color) {          //Esta funcion sirve para darle un id unico a cada color, para no hacer repetidos al momento de hacer las máscaras
     return (static_cast<uint32_t>(color[0]) << 16) |
@@ -57,9 +61,6 @@ int encontrarComponentes( //retorno de la cantidad de componentes
         return totalComponentes - 1;
     }
 
-    bool cajaContiene(const cv::Rect& exterior, const cv::Rect& interior) {
-    return exterior.contains(interior.tl()) && exterior.contains(interior.br());
-    }
 
     bool cajaContiene(const cv::Rect& exterior, const cv::Rect& interior) {
     return exterior.contains(interior.tl()) && exterior.contains(interior.br());
@@ -131,6 +132,39 @@ std::vector<ResultadoFigura> analizarImagen(const cv::Mat& imagen) {
 
         }
     }
+
+        for (size_t i = 0; i < componentes.size(); i++) {
+            for (size_t j = 0; j < componentes.size(); j++) {
+
+            if (i == j) {
+                continue;
+            }
+
+            if (!cajaContiene(componentes[i].caja, componentes[j].caja)) {
+                continue;
+            }
+
+            if (contornoContiene(componentes[i].contorno, componentes[j].contorno)) {
+                coloresFondo.insert(
+                codificarColor(componentes[i].color)
+            );
+        }
+    }
+}
+
+        for (const Componente& componente : componentes) {
+            if (coloresFondo.find(codificarColor(componente.color)) != coloresFondo.end()) {continue;}
+
+            char tipo = clasificarFigura(componente.contorno);
+            std::string colorHex = obtenerColorHexadecimal(componente.color);
+
+            ResultadoFigura resultado;
+            resultado.tipo = tipo;
+            resultado.color = colorHex;
+
+            resultados.push_back(resultado);
+
+        }
 
     return resultados;
 }

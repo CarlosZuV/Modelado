@@ -37,6 +37,8 @@ add_executable(sistema_figuras
 	src/cargador_imagen.cpp
   src/clasificar_figura.cpp 
   src/obtener_color_hexadecimal.cpp
+  src/analizador_imagen.cpp
+  src/iniciar.cpp
 )
 
 target_link_libraries(sistema_figuras ${OpenCV_LIBS})
