@@ -6,6 +6,7 @@
 #include "../include/clasificar_figura.h"
 #include "../include/obtener_color.h"
 #include <opencv2/imgproc.hpp>
+#include <opencv2/geometry.hpp>
 
 uint32_t codificarColor(const cv::Vec3b& color) {          //Esta funcion sirve para darle un id unico a cada color, para no hacer repetidos al momento de hacer las máscaras
     return (static_cast<uint32_t>(color[0]) << 16) |
