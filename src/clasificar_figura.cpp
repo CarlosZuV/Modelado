@@ -4,11 +4,21 @@
 
 char clasificarFigura(const std::vector<cv::Point>& contorno) {
 
-    if (contorno.empty()) {
+    if (contorno.size() < 3) {
         return 'X';
     }
 
     double perimetro = cv::arcLength(contorno, true);
+
+    if (perimetro <= 0.0){
+        return 'X';
+    }
+
+    double area = cv::contourArea(contorno);
+
+    if (area <= 0.0) {
+        return 'X';
+    }
 
     std::vector<cv::Point> aproximacion;
 
@@ -29,22 +39,24 @@ char clasificarFigura(const std::vector<cv::Point>& contorno) {
         return 'C';
     }
 
-    double area = cv::contourArea(contorno);
-
-    double circularidad =
-        4 * CV_PI * area / (perimetro * perimetro);
-
     cv::Point2f centro;
     float radio;
 
     cv::minEnclosingCircle(contorno, centro, radio);
+
+    if (radio <= 0.0) {
+        return 'X';
+    }
+
+    double circularidad =
+        4 * CV_PI * area / (perimetro * perimetro);
 
     double proporcionArea =
         area / (CV_PI * radio * radio);
 
     if (circularidad > 0.85 && proporcionArea > 0.90) {
         return 'O';
-        }
+    }
 
     return 'X';
 }
