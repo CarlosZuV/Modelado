@@ -80,15 +80,23 @@ int encontrarComponentes( //retorno de la cantidad de componentes
 }
 
 std::vector<ResultadoFigura> analizarImagen(const cv::Mat& imagen) {
-    std::vector<ResultadoFigura> resultados;
-    std::vector<Componente> componentes;
-    std::unordered_set<uint32_t> coloresFondo;
+  std::vector<ResultadoFigura> resultados;
+  std::vector<Componente> componentes;
+  std::unordered_set<uint32_t> coloresFondo;
 
-    std::unordered_set<uint32_t> colores = obtenerColoresUnicos(imagen);
+    // 1. APLICAR FILTRO PARA ELIMINAR BORDES DIFUMINADOS
+    cv::Mat imagenLimpia;
+    cv::medianBlur(imagen, imagenLimpia, 5);
+
+    // 2. EXTRAER COLORES USANDO LA IMAGEN LIMPIA, NO LA ORIGINAL
+    std::unordered_set<uint32_t> colores = obtenerColoresUnicos(imagenLimpia);
 
     for (uint32_t codigo : colores) {
         cv::Vec3b color = decodificarColor(codigo);
-        cv::Mat mascara = crearMascaraColor(imagen, color);
+        
+        // 3. CREAR MÁSCARAS BASADAS EN LA IMAGEN LIMPIA
+        cv::Mat mascara = crearMascaraColor(imagenLimpia, color); 
+        
         cv::Mat etiquetas;
         cv::Mat estadisticas;
         cv::Mat centroides;
@@ -100,71 +108,76 @@ std::vector<ResultadoFigura> analizarImagen(const cv::Mat& imagen) {
             centroides
         );
 
-        for (int i = 1; i < totalComponentes; i++) { //esta parte hace una caja que delimita la componente, nos sirve para determinar si una componente está dentro de otra, haciendo que tomemos la más grande como fondo
+        for (int i = 1; i < totalComponentes; i++) { 
+            
+            // 4. IGNORAR CUALQUIER FIGURA MENOR A 100 PÍXELES (RUIDO)
+            if (estadisticas.at<int>(i, cv::CC_STAT_AREA) < 50) {
+                continue;
+            }
+
             cv::Rect caja(
-            estadisticas.at<int>(i, cv::CC_STAT_LEFT),
-            estadisticas.at<int>(i, cv::CC_STAT_TOP),
-            estadisticas.at<int>(i, cv::CC_STAT_WIDTH),
-            estadisticas.at<int>(i, cv::CC_STAT_HEIGHT)
-        );
+                estadisticas.at<int>(i, cv::CC_STAT_LEFT),
+                estadisticas.at<int>(i, cv::CC_STAT_TOP),
+                estadisticas.at<int>(i, cv::CC_STAT_WIDTH),
+                estadisticas.at<int>(i, cv::CC_STAT_HEIGHT)
+            );
 
-        Componente componente;
-        componente.color = color;
-        componente.caja = caja;
+	    if (caja.width >= imagen.cols - 5 && caja.height >= imagen.rows - 5) {
+	      coloresFondo.insert(codificarColor(color));
+	      continue; // Lo ignoramos y pasamos al siguiente componente
+            }
+	    
+            Componente componente;
+            componente.color = color;
+            componente.caja = caja;
+	    
+            cv::Mat mascaraComponente = (etiquetas == i);
+            std::vector<std::vector<cv::Point>> contornos; 
 
-        cv::Mat mascaraComponente = (etiquetas == i);
+            cv::findContours(
+                mascaraComponente,
+                contornos,
+                cv::RETR_EXTERNAL,
+                cv::CHAIN_APPROX_SIMPLE
+            );
 
-        std::vector<std::vector<cv::Point>> contornos; //omfg ya podemos sacar el contorno
+            if (contornos.empty()) {
+                continue;
+            }
 
-        cv::findContours(
-            mascaraComponente,
-            contornos,
-            cv::RETR_EXTERNAL,
-            cv::CHAIN_APPROX_SIMPLE
-        );
-
-        if (contornos.empty()) {
-            continue;
-        }
-
-        componente.contorno = contornos[0];
-        componentes.push_back(componente);
-
+            componente.contorno = contornos[0];
+            componentes.push_back(componente);
         }
     }
 
-        for (size_t i = 0; i < componentes.size(); i++) {
-            for (size_t j = 0; j < componentes.size(); j++) {
-
+    for (size_t i = 0; i < componentes.size(); i++) {
+        for (size_t j = 0; j < componentes.size(); j++) {
             if (i == j) {
                 continue;
             }
-
             if (!cajaContiene(componentes[i].caja, componentes[j].caja)) {
                 continue;
             }
-
             if (contornoContiene(componentes[i].contorno, componentes[j].contorno)) {
                 coloresFondo.insert(
-                codificarColor(componentes[i].color)
-            );
+                    codificarColor(componentes[i].color)
+                );
+            }
         }
     }
-}
 
-        for (const Componente& componente : componentes) {
-            if (coloresFondo.find(codificarColor(componente.color)) != coloresFondo.end()) {continue;}
+    for (const Componente& componente : componentes) {
+        if (coloresFondo.find(codificarColor(componente.color)) != coloresFondo.end()) {continue;}
 
-            char tipo = clasificarFigura(componente.contorno);
-            std::string colorHex = obtenerColorHexadecimal(componente.color);
+        char tipo = clasificarFigura(componente.contorno);
+        std::string colorHex = obtenerColorHexadecimal(componente.color);
 
-            ResultadoFigura resultado;
-            resultado.tipo = tipo;
-            resultado.color = colorHex;
+        ResultadoFigura resultado;
+        resultado.tipo = tipo;
+        resultado.color = colorHex;
 
-            resultados.push_back(resultado);
-
-        }
+        resultados.push_back(resultado);
+    }
 
     return resultados;
 }
