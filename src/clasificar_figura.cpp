@@ -1,6 +1,6 @@
 #include "../include/clasificar_figura.h"
 #include <opencv2/imgproc.hpp> //para que no haya error al compilar -Zu
-
+#include <opencv2/geometry.hpp>
 char clasificarFigura(const std::vector<cv::Point>& contorno) {
 
     if (contorno.size() < 3) {
