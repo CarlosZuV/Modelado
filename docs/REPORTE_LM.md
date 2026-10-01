@@ -3,7 +3,7 @@
 
 ## Modelo usado: ChatGPT.
 
-## Razón de uso: El análisis que hace de manera exhaustiva a la hora de analizar los problemas plateados, ya que no solamente genera respuestas en el sentido de "Toma, este es el resultado" sino que vamos analizando paso a paso los casos y vamos revisando cada limitante de los problemas para poder llegar a la solución correcta. Más aún, el modelo va explicando como y por qué funciona cada cosa del código que llega a proporcionar
+## Razón de uso: El análisis que hace de manera exhaustiva a la hora de analizar los problemas planteados, ya que no solamente genera respuestas en el sentido de "Toma, este es el resultado" sino que vamos analizando paso a paso los casos y vamos revisando cada limitante de los problemas para poder llegar a la solución correcta. Más aún, el modelo va explicando como y por qué funciona cada cosa del código que llega a proporcionar
 
 ## Modelo usado: Gemini.
 
