@@ -56,3 +56,15 @@
 *    **Qué parte de la respuesta aceptamos tal cual:** La confirmación de que los archivos de lectura de terminal y rutas pertenecían lógicamente al submódulo de Input/Output (src/io/), validando nuestro reordenamiento.
 
 *    **Qué parte corrigimos o descartamos y por qué:** El modelo sugirió crear archivos __init__.py dentro de cada carpeta para convertirlos en módulos. Descartamos esto inmediatamente porque esa es una regla de arquitectura para Python, no aplicable a nuestro entorno de compilación con CMake en C++.
+
+## Caso: Implementación y validación del clasificador de figuras
+**Herramienta utilizada:** ChatGPT
+**Prompt utilizado:** “Estoy trabajando en un proyecto en C++ con OpenCV para clasificar figuras geométricas a partir de sus contornos. Necesito entender cómo estructurar la función de clasificación, cómo usar funciones de OpenCV como arcLength, contourArea, approxPolyDP y fitEllipse, y cómo validar casos como triángulos, cuadriláteros, círculos, óvalos, líneas y contornos inválidos. También necesito orientación para compilar el proyecto con CMake y crear pruebas unitarias con Google Test.Porfa”
+**¿Por qué decidimos usar esta herramienta?**
+Se utilizó ChatGPT principalmente como apoyo para entender sintaxis y conceptos de C++ que eran nuevos para mí, así como el funcionamiento de algunas funciones de OpenCV. También fue útil para interpretar errores de compilación, entender la configuración de CMake y estructurar pruebas unitarias.
+**¿Qué parte de la respuesta aceptamos tal cual?**
+Se tomaron como referencia explicaciones sobre el uso de funciones de OpenCV como arcLength, contourArea, approxPolyDP, ellipse2Poly y fitEllipse, además de la estructura básica de pruebas con Google Test mediante TEST y EXPECT_EQ.
+**¿Qué parte corregimos o adaptamos y por qué?**
+Los criterios de clasificación se ajustaron después de probar distintos casos. Por ejemplo, inicialmente una figura pentagonal podía confundirse con un círculo al usar únicamente circularidad, por lo que se modificó la lógica para considerar también la geometría del contorno. Posteriormente se cambió el criterio de detección de figuras redondeadas para permitir también óvalos, ya que las imágenes de prueba no contenían círculos matemáticamente perfectos. También se añadieron validaciones para contornos con pocos puntos, líneas con área cero y posibles divisiones entre cero.
+**Error del modelo y cómo lo detectamos:**
+Algunas propuestas iniciales eran demasiado estrictas para las imágenes reales o podían clasificar incorrectamente otras figuras como círculos. Esto se detectó mediante pruebas unitarias y al comparar los resultados con las imágenes del banco de pruebas. Por ello, los umbrales y la estrategia de detección se fueron modificando con base en los resultados obtenidos.
