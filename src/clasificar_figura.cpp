@@ -38,24 +38,27 @@ char clasificarFigura(const std::vector<cv::Point>& contorno) {
         return 'C';
     }
 
-    cv::Point2f centro;
-    float radio;
+    //tanto círculos coo ovalos son clasificados como 'O'
+    if (contorno.size() >= 5) { //La función fitElipse requiere al menos 5 puntos
 
-    cv::minEnclosingCircle(contorno, centro, radio);
+        cv::RotatedRect elipse = cv::fitEllipse(contorno);
 
-    if (radio <= 0.0) {
-        return 'X';
+        double radioX = elipse.size.width / 2.0; //nos da semieje horizontal
+        double radioY = elipse.size.height / 2.0;  //nos da semieje vertical
+
+        if (radioX > 0.0 && radioY > 0.0) {
+
+            double areaElipse = CV_PI * radioX * radioY; //CV_PI es PI
+
+            double proporcionElipse = area / areaElipse;
+
+            if (proporcionElipse > 0.85 && proporcionElipse < 1.15) {
+
+            return 'O';
+        }
     }
+}
 
-    double circularidad =
-        4 * CV_PI * area / (perimetro * perimetro);
+return 'X';
 
-    double proporcionArea =
-        area / (CV_PI * radio * radio);
-
-    if (circularidad > 0.85 && proporcionArea > 0.90) {
-        return 'O';
-    }
-
-    return 'X';
 }
