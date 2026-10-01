@@ -1,6 +1,8 @@
 #include "../include/clasificar_figura.h"
 #include <opencv2/imgproc.hpp> //para que no haya error al compilar -Zu
 #include <opencv2/geometry.hpp>
+#include <iostream>
+
 char clasificarFigura(const std::vector<cv::Point>& contorno) {
 
     if (contorno.size() < 3) {
@@ -38,32 +40,25 @@ char clasificarFigura(const std::vector<cv::Point>& contorno) {
         return 'C';
     }
 
-    // Descarta polígonos de 5 a 8 vértices antes de evaluar si son ovalados.
-    if (vertices >= 5 && vertices <= 8) {
+    cv::Point2f centro;
+    float radio;
+
+    cv::minEnclosingCircle(contorno, centro, radio);
+
+    if (radio <= 0.0) {
         return 'X';
     }
 
-    //tanto círculos como ovalos son clasificados como 'O'
-    if (contorno.size() >= 5) { //La función fitElipse requiere al menos 5 puntos
+    double circularidad =
+        4 * CV_PI * area / (perimetro * perimetro);
 
-        cv::RotatedRect elipse = cv::fitEllipse(contorno);
+    double proporcionArea =
+        area / (CV_PI * radio * radio);
 
-        double radioX = elipse.size.width / 2.0; //nos da semieje horizontal
-        double radioY = elipse.size.height / 2.0;  //nos da semieje vertical
 
-        if (radioX > 0.0 && radioY > 0.0) {
-
-            double areaElipse = CV_PI * radioX * radioY; //CV_PI es PI
-
-            double proporcionElipse = area / areaElipse;
-
-            if (proporcionElipse > 0.85 && proporcionElipse < 1.15) {
-
-            return 'O';
-        }
+    if (circularidad > 0.83 && proporcionArea > 0.85) {
+        return 'O';
     }
-}
 
-return 'X';
-
+    return 'X';
 }
