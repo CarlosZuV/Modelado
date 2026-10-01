@@ -38,6 +38,11 @@ char clasificarFigura(const std::vector<cv::Point>& contorno) {
         return 'C';
     }
 
+    // Descarta polígonos de 5 a 8 vértices antes de evaluar si son ovalados.
+    if (vertices >= 5 && vertices <= 8) {
+        return 'X';
+    }
+
     //tanto círculos como ovalos son clasificados como 'O'
     if (contorno.size() >= 5) { //La función fitElipse requiere al menos 5 puntos
 
