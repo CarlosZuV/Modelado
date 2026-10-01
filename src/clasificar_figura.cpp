@@ -38,7 +38,7 @@ char clasificarFigura(const std::vector<cv::Point>& contorno) {
         return 'C';
     }
 
-    //tanto círculos coo ovalos son clasificados como 'O'
+    //tanto círculos como ovalos son clasificados como 'O'
     if (contorno.size() >= 5) { //La función fitElipse requiere al menos 5 puntos
 
         cv::RotatedRect elipse = cv::fitEllipse(contorno);
