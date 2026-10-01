@@ -1,6 +1,12 @@
 # Reporte de Uso de Modelos de Lenguaje (REPORTE_LM)
 **Equipo:** Omega Dinamita 3.0
 
+## Modelo usado: ChatGPT.
+
+## Razón de uso: El análisis que hace de manera exhaustiva a la hora de analizar los problemas plateados, ya que no solamente genera respuestas en el sentido de "Toma, este es el resultado" sino que vamos analizando paso a paso los casos y vamos revisando cada limitante de los problemas para poder llegar a la solución correcta. Más aún, el modelo va explicando como y por qué funciona cada cosa del código que llega a proporcionar
+
+## Modelo usado: Gemini.
+
 ## Caso 1: Generación del Banco de Imágenes de Prueba
 
 *   **Prompt utilizado:** "Me puedes dar un ejemplo de cómo hacerla en BMP y en qué hacerla? Tenía idea de hacerla en Paint... Hay un gran problema y es que el detector de Paint, sus bordes no son exactos. Las esquinas no tienen un vértice y hay difuminación. ¿Mejor haces tú las 10 imágenes mediante un script en Python para garantizar que no haya suavizado?" (Resumido).
@@ -32,6 +38,10 @@
 *    **Qué parte corrigimos o descartamos y por qué:** El modelo sugirió usar librerías nativas de bajo nivel (fstream para lectura binaria) para extraer el código hexadecimal manualmente. Decidimos descartar esa aproximación tan cruda y preferimos apoyarnos en la configuración de OpenCV que ya teníamos, ya que optimiza la lectura de la matriz de píxeles.
 
 *    **Error del modelo y cómo lo detectamos:** Al sugerir el flujo de lectura de píxeles, el modelo asumió que la imagen BMP se lee por defecto en formato RGB. Detectamos el error en las pruebas, ya que el formato BMP almacena los canales de color en orden inverso (BGR), lo cual nos obligó a corregir la lógica de extracción hexadecimal.
+
+*    **Corrección de algoritmos de identificación:** Al momento de hacer la integración de nuestros algoritmos de identificación, identificamos problemas al momento de realizar los análisis de las imágenes así como algunos casos excepcionales en los cuales el algoritmo identificaba hasta más de mil figuras debido a píxeles sueltos, usamos la IA para poder ayduarnos a identificar una manera de poder mitigar estos errores para poder llegar a un mejor algoritmo de identificación.
+
+*    **Ayuda con problema de versiones:** Al momento de haber llegado a un modelo base para hacer la identificación de las figuras, nos dimos cuenta que para unos nos compilaba el proyecto, mientras que para otros no, al no dar con la solución ante este problema, usamos los modelos de IA para poder dar con la razón de esta causa, finalmente pudimos identificar que la razón de este problema fueron las diferencias de veriones de la biblioteca de OpenCV
 
 ## Caso 4: Refactorización y Estructura de Directorios
 
