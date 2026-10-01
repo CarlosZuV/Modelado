@@ -8,7 +8,7 @@
 ## Modelo usado: Gemini.
 
 ## Razón de uso:
-Se eligió a Gemini para actuar bajo el rol de un tutor o desarrollador senior, priorizando el acompañamiento técnico y el aprendizaje por encima de la simple generación automatizada de código. En lugar de delegar la escritura completa de los algoritmos a la IA, utilizamos este modelo como una herramienta complementaria para entrelazar nuestros conocimientos previos en programación orientada a objetos (como Java) con el nuevo paradigma de C++. Su enfoque explicativo fue clave para comprender la lógica profunda del lenguaje, la correcta integración de librerías externas (como OpenCV), la resolución de problemas de compilación (como las versiones en CMake) y las mejores prácticas del entorno, permitiéndonos desarrollar el proyecto de manera óptima y manteniendo el control total sobre nuestra arquitectura.
+ Se eligió a Gemini para actuar bajo el rol de un tutor o desarrollador senior, priorizando el acompañamiento técnico y el aprendizaje por encima de la simple generación automatizada de código. En lugar de delegar la escritura completa de los algoritmos a la IA, utilizamos este modelo como una herramienta complementaria para entrelazar nuestros conocimientos previos en programación orientada a objetos (como Java) con el nuevo paradigma de C++. Su enfoque explicativo fue clave para comprender la lógica profunda del lenguaje, la correcta integración de librerías externas (como OpenCV), la resolución de problemas de compilación (como las versiones en CMake) y las mejores prácticas del entorno, permitiéndonos desarrollar el proyecto de manera óptima y manteniendo el control total sobre nuestra arquitectura.
 
 ## Caso 1: Generación del Banco de Imágenes de Prueba
 

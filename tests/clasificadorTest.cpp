@@ -67,3 +67,20 @@ TEST(ClasificadorTest, LineaNoEsFigura) {
 
     EXPECT_EQ(clasificarFigura(linea), 'X');
 }
+
+TEST(ClasificadorTest, DetectaOvalo) {
+
+    std::vector<cv::Point> ovalo;
+
+    cv::ellipse2Poly(
+        cv::Point(50, 50),
+        cv::Size(50, 30),
+        0,
+        0,
+        360,
+        10,
+        ovalo
+    );
+
+    EXPECT_EQ(clasificarFigura(ovalo), 'O');
+}
